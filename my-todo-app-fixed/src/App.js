@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import Header from './components/Header';
 import TaskForm from './components/TaskForm';
 import TodoItem from './components/TodoItem';
@@ -6,6 +6,7 @@ import FilterBar from './components/FilterBar';
 import TaskStats from './components/TaskStats';
 import Toast from './components/Toast';
 import Modal from './components/Modal';
+import { ThemeContext } from './context/ThemeContext';
 import './styles.css';
 
 function App() {
@@ -16,6 +17,19 @@ function App() {
   const [toastMsg, setToastMsg] = useState('');
   const [modalOpen, setModalOpen] = useState(false);
   const [modalTaskIndex, setModalTaskIndex] = useState(null);
+
+  const { dark, setDark } = useContext(ThemeContext);
+
+  // Load tasks from localStorage
+  useEffect(() => {
+    const stored = localStorage.getItem('todos');
+    if (stored) setTodos(JSON.parse(stored));
+  }, []);
+
+  // Save tasks to localStorage
+  useEffect(() => {
+    localStorage.setItem('todos', JSON.stringify(todos));
+  }, [todos]);
 
   const addTodo = () => {
     if (input.trim() && dueDate) {
@@ -44,6 +58,13 @@ function App() {
     setModalTaskIndex(null);
   };
 
+  const editTodo = (index, newText) => {
+    const updated = [...todos];
+    updated[index].text = newText;
+    setTodos(updated);
+    setToastMsg('Task updated!');
+  };
+
   const filteredTodos = todos.filter((todo) => {
     if (filter === 'Active') return !todo.completed;
     if (filter === 'Completed') return todo.completed;
@@ -52,6 +73,13 @@ function App() {
 
   return (
     <div className="max-w-xl mx-auto p-4">
+      <button
+        onClick={() => setDark(!dark)}
+        className="mb-4 px-4 py-2 rounded bg-gray-800 text-white dark:bg-gray-200 dark:text-black"
+      >
+        Toggle {dark ? 'Light' : 'Dark'} Mode
+      </button>
+
       <Header />
       <TaskForm
         input={input}
@@ -69,6 +97,7 @@ function App() {
             todo={todo}
             onToggle={() => toggleComplete(index)}
             onDelete={() => confirmDelete(index)}
+            onEdit={(newText) => editTodo(index, newText)}
           />
         ))}
       </ul>
