@@ -4,7 +4,7 @@ function Toast({ message, clearMessage }) {
   useEffect(() => {
     const timer = setTimeout(() => clearMessage(), 3000);
     return () => clearTimeout(timer);
-  }, [message]);
+  }, [clearMessage]); // ✅ Added dependency
 
   if (!message) return null;
 
@@ -14,4 +14,5 @@ function Toast({ message, clearMessage }) {
     </div>
   );
 }
+
 export default Toast;
