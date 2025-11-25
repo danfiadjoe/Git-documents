@@ -1,17 +1,25 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+console.log("Starting server...");
+require('dotenv').config();
+const express = require('express');
+const mysql = require('mysql2');
+const cors = require('cors');
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
-);
+const app = express();
+app.use(cors());
+app.use(express.json());
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+const db = mysql.createConnection({
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME
+});
+
+app.get('/hotels', (req, res) => {
+  db.query('SELECT * FROM hotels', (err, results) => {
+    if (err) return res.status(500).send(err);
+    res.json(results);
+  });
+});
+
+app.listen(3001, () => console.log('Server running on port 3001'));
