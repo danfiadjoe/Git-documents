@@ -7,7 +7,7 @@ function HotelList() {
   useEffect(() => {
     axios.get('http://localhost:3001/hotels')
       .then(res => setHotels(res.data))
-      .catch(err => console.error('Error fetching hotels:', err));
+      .catch(err => console.error(err));
   }, []);
 
   return (
@@ -15,9 +15,7 @@ function HotelList() {
       <h2>Available Hotels</h2>
       <ul>
         {hotels.map(hotel => (
-          <li key={hotel.id}>
-            <strong>{hotel.name}</strong> - {hotel.location}
-          </li>
+          <li key={hotel.id}>{hotel.name} - {hotel.location}</li>
         ))}
       </ul>
     </div>

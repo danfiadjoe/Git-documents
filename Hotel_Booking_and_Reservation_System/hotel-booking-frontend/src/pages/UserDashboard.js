@@ -7,7 +7,7 @@ function UserDashboard({ userId }) {
   useEffect(() => {
     axios.get(`http://localhost:3001/bookings/${userId}`)
       .then(res => setBookings(res.data))
-      .catch(err => console.error('Error fetching bookings:', err));
+      .catch(err => console.error(err));
   }, [userId]);
 
   return (

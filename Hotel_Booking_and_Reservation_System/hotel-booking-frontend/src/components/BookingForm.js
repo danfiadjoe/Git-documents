@@ -5,16 +5,19 @@ function BookingForm({ userId, roomId }) {
   const [checkIn, setCheckIn] = useState('');
   const [checkOut, setCheckOut] = useState('');
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    axios.post('http://localhost:3001/bookings', {
-      user_id: userId,
-      room_id: roomId,
-      check_in: checkIn,
-      check_out: checkOut
-    })
-    .then(res => alert('Booking confirmed!'))
-    .catch(err => console.error('Booking error:', err));
+    try {
+      await axios.post('http://localhost:3001/bookings', {
+        user_id: userId,
+        room_id: roomId,
+        check_in: checkIn,
+        check_out: checkOut
+      });
+      alert('Booking confirmed!');
+    } catch (err) {
+      alert('Booking failed: ' + err.response.data.message);
+    }
   };
 
   return (

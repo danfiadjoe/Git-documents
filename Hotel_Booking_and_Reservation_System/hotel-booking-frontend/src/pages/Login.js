@@ -5,14 +5,15 @@ function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-    axios.post('http://localhost:3001/auth/login', { email, password })
-      .then(res => {
-        localStorage.setItem('token', res.data.token);
-        alert('Login successful!');
-      })
-      .catch(err => alert('Login failed'));
+    try {
+      const res = await axios.post('http://localhost:3001/auth/login', { email, password });
+      localStorage.setItem('token', res.data.token);
+      alert('Login successful!');
+    } catch (err) {
+      alert('Login failed: ' + err.response.data.message);
+    }
   };
 
   return (

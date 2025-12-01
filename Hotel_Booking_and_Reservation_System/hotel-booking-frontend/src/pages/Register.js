@@ -6,11 +6,14 @@ function Register() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleRegister = (e) => {
+  const handleRegister = async (e) => {
     e.preventDefault();
-    axios.post('http://localhost:3001/auth/register', { name, email, password })
-      .then(res => alert('Registration successful!'))
-      .catch(err => alert('Registration failed'));
+    try {
+      await axios.post('http://localhost:3001/auth/register', { name, email, password });
+      alert('Registration successful!');
+    } catch (err) {
+      alert('Registration failed: ' + err.response.data.message);
+    }
   };
 
   return (
