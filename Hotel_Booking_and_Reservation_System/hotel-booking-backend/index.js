@@ -2,6 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const mysql = require('mysql2');
 const cors = require('cors');
+const verifyToken = require('./middleware/verifyToken');
 
 const app = express();
 app.use(cors());
@@ -21,6 +22,17 @@ db.connect((err) => {
     return;
   }
   console.log('✅ Connected to MySQL database');
+});
+
+// Protect all routes except /auth and public hotel browsing
+app.use((req, res, next) => {
+  if (
+    req.path.startsWith('/auth') || 
+    (req.method === 'GET' && req.path.startsWith('/hotels'))
+  ) {
+    return next();
+  }
+  verifyToken(req, res, next);
 });
 
 // Import routes
