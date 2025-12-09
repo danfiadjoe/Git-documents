@@ -24,4 +24,14 @@ router.post('/', verifyToken, authorizeRole('admin'), (req, res) => {
   );
 });
 
+// Get single hotel by ID
+router.get('/:id', (req, res) => {
+  const { id } = req.params;
+  db.query('SELECT * FROM hotels WHERE id = ?', [id], (err, results) => {
+    if (err) return res.status(500).json({ message: 'Database error' });
+    if (results.length === 0) return res.status(404).json({ message: 'Hotel not found' });
+    res.json(results[0]);
+  });
+});
+
 module.exports = router;
