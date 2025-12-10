@@ -145,8 +145,8 @@ hotel-booking-app/
 
 ## 👨‍💻 Contributors
 
-- Built by: _Your Name_
-- Location: Corner Brook, Newfoundland and Labrador, Canada
+- Built by: _Daniel Fiadjoe_
+- Location: Clarenville, Newfoundland and Labrador, Canada
 
 ---
 
