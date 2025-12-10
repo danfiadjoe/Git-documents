@@ -1,70 +1,160 @@
-# Getting Started with Create React App
+Here’s a **README.md draft** for your hotel booking application based on everything we’ve built so far. It captures the project setup, features, and usage instructions in a professional format:
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+---
 
-## Available Scripts
+```markdown
+# Hotel Booking & Reservation System
 
-In the project directory, you can run:
+A full‑stack hotel booking application built with **React (frontend)**, **Express/Node.js (backend)**, and **MySQL (database)**.  
+The system supports user authentication, role‑based access (admin vs. user), hotel and room management, and booking functionality.
 
-### `npm start`
+---
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## 🚀 Features
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- **Authentication**
 
-### `npm test`
+  - User registration & login with JWT tokens
+  - Role‑based access control (admin vs. user)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- **Hotels**
 
-### `npm run build`
+  - View all hotels (public)
+  - View single hotel details
+  - Add new hotels (admin only)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- **Rooms**
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+  - View rooms for a specific hotel
+  - Add new rooms (admin only)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- **Bookings**
 
-### `npm run eject`
+  - Book a room with check‑in/check‑out dates
+  - Store bookings in MySQL
+  - View bookings per user
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+- **Dashboard**
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+  - User dashboard to view bookings
+  - Admin dashboard to manage hotels and rooms
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+- **UI**
+  - Responsive design with Tailwind CSS
+  - Clean layout for hotel details and booking flow
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+---
 
-## Learn More
+## 🛠️ Tech Stack
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- **Frontend**: React, Tailwind CSS, Axios
+- **Backend**: Node.js, Express.js
+- **Database**: MySQL
+- **Auth**: JWT (JSON Web Tokens)
+- **Hosting (planned)**: Netlify (frontend), Render (backend), PlanetScale (database)
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+---
 
-### Code Splitting
+## 📂 Project Structure
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+hotel-booking-app/
+├── backend/
+│ ├── index.js # Express server entry
+│ ├── routes/
+│ │ ├── hotels.js # Hotel routes
+│ │ ├── rooms.js # Room routes
+│ │ └── bookings.js # Booking routes
+│ ├── middleware/
+│ │ ├── verifyToken.js
+│ │ └── authorizeRole.js
+│ └── db.js # MySQL connection
+│
+├── frontend/
+│ ├── src/
+│ │ ├── components/
+│ │ │ └── HotelDetails.js
+│ │ ├── pages/
+│ │ ├── utils/
+│ │ │ └── axiosInstance.js
+│ │ └── App.js
+│ └── package.json
 
-### Analyzing the Bundle Size
+````
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+---
 
-### Making a Progressive Web App
+## ⚙️ Setup Instructions
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+### Backend
+1. Navigate to backend folder:
+   ```bash
+   cd backend
+   npm install
+````
 
-### Advanced Configuration
+2. Create `.env` file:
+   ```
+   DB_HOST=localhost
+   DB_USER=root
+   DB_PASSWORD=yourpassword
+   DB_NAME=hotel_booking
+   JWT_SECRET=yourjwtsecret
+   PORT=5000
+   ```
+3. Start server:
+   ```bash
+   npm start
+   ```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+### Frontend
 
-### Deployment
+1. Navigate to frontend folder:
+   ```bash
+   cd frontend
+   npm install
+   ```
+2. Create `.env` file:
+   ```
+   REACT_APP_API_URL=http://localhost:5000
+   ```
+3. Start React app:
+   ```bash
+   npm start
+   ```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+---
 
-### `npm run build` fails to minify
+## 📖 Usage
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- Visit `http://localhost:3000` for frontend.
+- Register/login to access booking features.
+- Admin can add hotels and rooms.
+- Users can view hotels, rooms, and book rooms with dates.
+
+---
+
+## ✅ Next Steps (Deployment Plan)
+
+- Deploy backend to **Render**.
+- Deploy frontend to **Netlify**.
+- Host MySQL database on **PlanetScale**.
+- Update `axiosInstance.js` to use live backend URL.
+
+---
+
+## 👨‍💻 Contributors
+
+- Built by: _Your Name_
+- Location: Corner Brook, Newfoundland and Labrador, Canada
+
+---
+
+```
+
+---
+
+This README gives you a professional project overview, setup guide, and deployment plan.
+
+👉 Would you like me to also add a **“Demo Flow” section** (screenshots or step‑by‑step user journey: login → view hotel → book room → dashboard) so anyone reading your README can quickly understand how the app works?
+```
